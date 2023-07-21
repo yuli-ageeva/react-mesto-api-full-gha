@@ -1,0 +1,11 @@
+.login__link {
+  text-decoration: none;
+  color: #FFFFFF;
+  padding-left: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login__link:hover {
+  opacity: 0.6;
+}
