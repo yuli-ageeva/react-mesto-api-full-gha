@@ -63,6 +63,7 @@ function createUser(req, res, next) {
     }))
     .then((user) => {
       res.status(201).send({
+        _id: user._id,
         name: user.name,
         about: user.about,
         avatar: user.avatar,
@@ -154,6 +155,7 @@ function login(req, res, next) {
           domain: 'yuliaageeva.nomoredomains.xyz'
         });
         return res.status(200).send({
+          _id: user._id,
           name: user.name,
           about: user.about,
           avatar: user.avatar,

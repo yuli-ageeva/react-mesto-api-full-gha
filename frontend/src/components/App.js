@@ -143,7 +143,6 @@ function App() {
     auth
       .login(email, password)
       .then((data) => {
-        localStorage.setItem('email', email);
         setCurrentUser(data);
         setLoggedIn(true);
         navigate('/');
@@ -152,7 +151,6 @@ function App() {
         console.log(error);
       });
   };
-  const userEmail = localStorage.getItem('email');
 
   const handleRegister = (email, password) => {
     auth
@@ -181,7 +179,7 @@ function App() {
 
       <div className="root">
         <div className="root__content">
-          <Header loggedIn={loggedIn} userEmail={userEmail} onSignOut={handleSignOut}/>
+          <Header loggedIn={loggedIn} userEmail={currentUser.email} onSignOut={handleSignOut}/>
           <Routes>
             <Route
               path="/"

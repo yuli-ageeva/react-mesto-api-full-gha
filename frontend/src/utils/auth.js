@@ -1,4 +1,5 @@
 import React from "react";
+import api from "./Api";
 
 const baseUrl = 'https://api.yuliaageeva.nomoredomains.xyz';
 const credentials = 'include'
@@ -19,11 +20,6 @@ export function login(email, password) {
         throw new Error('Ошибка при авторизации');
       }
     })
-    .then((data) => {
-      const {token} = data;
-      // localStorage.setItem('token', token);
-      return data;
-    });
 }
 
 export function register(email, password) {
@@ -44,18 +40,5 @@ export function register(email, password) {
 }
 
 export function checkAuth() {
-  return fetch(`${baseUrl}/users/me`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: credentials,
-  })
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error('Не авторизован');
-      }
-    });
+  return api.getUserInfo();
 }
