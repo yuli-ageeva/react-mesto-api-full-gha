@@ -146,7 +146,11 @@ function login(req, res, next) {
         const payload = { _id: user._id };
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-        res.cookie('jwt', token, { httpOnly: true, sameSite: 'strict' });
+        res.cookie('jwt', token, {
+          httpOnly: true,
+          sameSite: 'strict',
+          domain: 'yuliaageeva.nomoredomains.xyz'
+        });
         return res.status(200).send({
           name: user.name,
           about: user.about,
