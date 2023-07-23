@@ -8,6 +8,7 @@ export function login(email, password) {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify({email, password}),
   })
     .then((response) => {
