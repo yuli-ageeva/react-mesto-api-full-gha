@@ -5,8 +5,9 @@ function Card(props) {
   const card = props.card;
   const currentUser = React.useContext(CurrentUserContext);
   console.log(`Current user in cards.js: ${JSON.stringify(currentUser)}`)
-  const isOwn = card.owner._id === currentUser._id;
-  const isLiked = card.likes.some(i => i._id === currentUser._id);
+  console.log(`Current card in cards.js: ${JSON.stringify(card)}`)
+  const isOwn = card.owner === currentUser._id;
+  const isLiked = card.likes.some(id => id === currentUser._id);
   const cardLikeButtonClassName = (
     `places__like ${isLiked && 'places__like_active'}`
   );
