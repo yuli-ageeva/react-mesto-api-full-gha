@@ -22,7 +22,7 @@ dotenv.config();
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
 });
-const corsWhitelist = ['https://yuliaageeva.nomoredomains.xyz/', 'https://api.yuliaageeva.nomoredomains.xyz/'];
+const corsWhitelist = ['https://yuliaageeva.nomoredomains.xyz', 'https://api.yuliaageeva.nomoredomains.xyz'];
 const corsOptions = {
   origin(origin, callback) {
     if (!origin || corsWhitelist.indexOf(origin) !== -1) {
