@@ -9,7 +9,7 @@ import api from "../utils/Api";
 import CurrentUserContext from "../context/CurrentUserContext";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import {Route, Routes, Navigate, useNavigate} from "react-router-dom";
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Login from "./Login";
 import Register from "./Register";
@@ -28,32 +28,31 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(false);
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
 
   React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getCards()])
-      .then(([dataUserInfo, dataCards]) => {
-        setCurrentUser(dataUserInfo);
-        setCards(dataCards);
+    if (loggedIn) {
+      Promise.all([api.getUserInfo(), api.getCards()])
+        .then(([dataUserInfo, dataCards]) => {
+          setCurrentUser(dataUserInfo);
+          setCards(dataCards);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [loggedIn]);
+
+  React.useEffect(() => {
+    auth.checkAuth()
+      .then((data) => {
+        setCurrentUser(data);
+        setLoggedIn(true);
+        navigate('/');
       })
       .catch((error) => {
         console.log(error);
       });
-
-    if (token) {
-      auth
-        .checkToken(token)
-        .then((data) => {
-          setCurrentUser(data);
-          setLoggedIn(true);
-          navigate('/');
-        })
-        .catch((error) => {
-          console.log(error);
-          localStorage.removeItem('token');
-        });
-    }
-  }, [navigate, token]);
+  }, [])
 
 
   function handleCardLike(card) {
@@ -145,7 +144,6 @@ function App() {
       .login(email, password)
       .then((data) => {
         localStorage.setItem('email', email);
-        localStorage.setItem('token', data.token);
         setCurrentUser(data);
         setLoggedIn(true);
         navigate('/');
@@ -172,7 +170,7 @@ function App() {
 
   const handleSignOut = () => {
     localStorage.removeItem('email');
-    localStorage.removeItem('token');
+    // localStorage.removeItem('token');
     setCurrentUser({});
     setLoggedIn(false);
     navigate('/sign-in');

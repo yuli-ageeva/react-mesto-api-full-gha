@@ -19,7 +19,7 @@ export function login(email, password) {
     })
     .then((data) => {
       const {token} = data;
-      localStorage.setItem('token', token);
+      // localStorage.setItem('token', token);
       return data;
     });
 }
@@ -41,19 +41,18 @@ export function register(email, password) {
     });
 }
 
-export function checkToken(token) {
+export function checkAuth() {
   return fetch(`${baseUrl}/users/me`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
     },
   })
     .then((response) => {
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error('Ошибка при проверке токена');
+        throw new Error('Не авторизован');
       }
     });
 }

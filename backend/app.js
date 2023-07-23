@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const userRoutes = require('./routes/users');
 const cardRoutes = require('./routes/cards');
@@ -17,12 +18,21 @@ const app = express();
 const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 
 dotenv.config();
-process.env.JWT_SECRET = 'strong-secret-key';
 
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
 });
-
+const corsWhitelist = ['https://yuliaageeva.nomoredomains.xyz/', 'https://api.yuliaageeva.nomoredomains.xyz/']
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (corsWhitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(helmet());
