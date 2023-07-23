@@ -174,7 +174,6 @@ function App() {
     navigate('/sign-in');
   };
 
-  console.log(`CURRENT USER: ${JSON.stringify(currentUser)}`)
   return (
     <CurrentUserContext.Provider value={currentUser}>
 
