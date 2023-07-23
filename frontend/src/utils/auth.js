@@ -1,6 +1,6 @@
 import React from "react";
 
-const baseUrl = 'https://auth.nomoreparties.co';
+const baseUrl = 'https://api.yuliaageeva.nomoreparties.xyz';
 
 export function login(email, password) {
   return fetch(`${baseUrl}/signin`, {
