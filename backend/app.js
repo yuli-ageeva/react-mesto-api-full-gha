@@ -22,16 +22,16 @@ dotenv.config();
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
 });
-const corsWhitelist = ['https://yuliaageeva.nomoredomains.xyz/', 'https://api.yuliaageeva.nomoredomains.xyz/']
+const corsWhitelist = ['https://yuliaageeva.nomoredomains.xyz/', 'https://api.yuliaageeva.nomoredomains.xyz/'];
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (corsWhitelist.indexOf(origin) !== -1) {
-      callback(null, true)
+  origin(origin, callback) {
+    if (!origin || corsWhitelist.indexOf(origin) !== -1) {
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error('Not allowed by CORS'));
     }
-  }
-}
+  },
+};
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
