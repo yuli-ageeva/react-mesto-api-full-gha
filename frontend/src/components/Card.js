@@ -4,6 +4,7 @@ import CurrentUserContext from "../context/CurrentUserContext";
 function Card(props) {
   const card = props.card;
   const currentUser = React.useContext(CurrentUserContext);
+  console.log(`Current user in cards.js: ${JSON.stringify(currentUser)}`)
   const isOwn = card.owner._id === currentUser._id;
   const isLiked = card.likes.some(i => i._id === currentUser._id);
   const cardLikeButtonClassName = (
