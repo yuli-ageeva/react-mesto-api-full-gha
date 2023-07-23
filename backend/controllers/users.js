@@ -149,7 +149,7 @@ function login(req, res, next) {
         res.cookie('jwt', token, {
           httpOnly: true,
           sameSite: 'strict',
-          domain: 'api.yuliaageeva.nomoredomains.xyz'
+          domain: '.yuliaageeva.nomoredomains.xyz'
         });
         return res.status(200).send({
           name: user.name,
