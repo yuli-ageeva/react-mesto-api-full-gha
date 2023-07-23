@@ -1,6 +1,5 @@
 class Api {
   constructor({baseUrl, commonHeaders, credentials}) {
-    // тело конструктора
     this.baseUrl = baseUrl;
     this.commonHeaders = commonHeaders;
     this.credentials = credentials;

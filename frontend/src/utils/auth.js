@@ -1,6 +1,7 @@
 import React from "react";
 
 const baseUrl = 'https://api.yuliaageeva.nomoredomains.xyz';
+const credentials = 'include'
 
 export function login(email, password) {
   return fetch(`${baseUrl}/signin`, {
@@ -8,7 +9,7 @@ export function login(email, password) {
     headers: {
       'Content-Type': 'application/json',
     },
-    credentials: 'include',
+    credentials: credentials,
     body: JSON.stringify({email, password}),
   })
     .then((response) => {
@@ -48,6 +49,7 @@ export function checkAuth() {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: credentials,
   })
     .then((response) => {
       if (response.ok) {
