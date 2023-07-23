@@ -145,7 +145,9 @@ function login(req, res, next) {
         }
         const payload = { _id: user._id };
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
-        return res.status(200).send({ token:token });
+
+        res.cookie('jwt', token, { httpOnly: true });
+        return res.status(200).send({ message: 'Аутентификация прошла успешно' });
       });
     })
     .catch(next);
