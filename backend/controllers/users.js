@@ -147,9 +147,11 @@ function login(req, res, next) {
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
 
         res.cookie('jwt', token, {
-          // httpOnly: true,
-          // sameSite: 'strict',
-          // domain: 'yuliaageeva.nomoredomains.xyz'
+          httpOnly: false,
+          sameSite: 'none',
+          secure: true,
+          path: "/",
+          domain: 'yuliaageeva.nomoredomains.xyz'
         });
         return res.status(200).send({
           name: user.name,
