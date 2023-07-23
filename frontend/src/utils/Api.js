@@ -1,20 +1,23 @@
 class Api {
-  constructor({baseUrl, headers}) {
+  constructor({baseUrl, commonHeaders, credentials}) {
     // тело конструктора
     this.baseUrl = baseUrl;
-    this.headers = headers;
+    this.commonHeaders = commonHeaders;
+    this.credentials = credentials;
   }
 
   getUserInfo() {
     return fetch(this.baseUrl + '/users/me', {
-      headers: this.headers
+      headers: this.commonHeaders,
+      credentials: this.credentials,
     })
       .then(this._checkResponse)
   }
 
   getCards() {
     return fetch(this.baseUrl + '/cards', {
-      headers: this.headers
+      headers: this.commonHeaders,
+      credentials: this.credentials,
     })
       .then(this._checkResponse)
   }
@@ -22,7 +25,8 @@ class Api {
   setNewInfo(data) {
     return fetch(this.baseUrl + '/users/me', {
       method: 'PATCH',
-      headers: this.headers,
+      headers: this.commonHeaders,
+      credentials: this.credentials,
       body: JSON.stringify({
         name: data.name,
         about: data.about,
@@ -34,7 +38,8 @@ class Api {
   addNewCard(data) {
     return fetch(this.baseUrl + '/cards', {
       method: 'POST',
-      headers: this.headers,
+      headers: this.commonHeaders,
+      credentials: this.credentials,
       body: JSON.stringify({
         name: data.name,
         link: data.link,
@@ -46,7 +51,8 @@ class Api {
   deleteCard(id) {
     return fetch(this.baseUrl + '/cards/' + id, {
       method: 'DELETE',
-      headers: this.headers,
+      headers: this.commonHeaders,
+      credentials: this.credentials,
     })
       .then(this._checkResponse)
   }
@@ -54,7 +60,8 @@ class Api {
   setNewAvatar(data) {
     return fetch(this.baseUrl + '/users/me/avatar', {
       method: "PATCH",
-      headers: this.headers,
+      headers: this.commonHeaders,
+      credentials: this.credentials,
       body: JSON.stringify({
         avatar: data.avatar,
       }),
@@ -65,7 +72,8 @@ class Api {
   _setLike(id) {
     return fetch(this.baseUrl + '/cards/' + id + '/likes', {
       method: 'PUT',
-      headers: this.headers
+      headers: this.commonHeaders,
+      credentials: this.credentials,
     })
       .then(this._checkResponse)
   }
@@ -73,7 +81,8 @@ class Api {
   _deleteLike(id) {
     return fetch(this.baseUrl + '/cards/' + id + '/likes', {
       method: 'DELETE',
-      headers: this.headers
+      headers: this.commonHeaders,
+      credentials: this.credentials,
     })
       .then(this._checkResponse)
   }
@@ -97,9 +106,10 @@ class Api {
 
 const api = new Api({
   baseUrl: 'https://api.yuliaageeva.nomoredomains.xyz',
-  headers: {
+  commonHeaders: {
     'Content-Type': 'application/json'
-  }
+  },
+  credentials: 'include'
 });
 
 export default api
