@@ -24,7 +24,7 @@ mongoose.connect(DB_URL, {
 });
 const corsWhitelist = ['https://yuliaageeva.nomoredomains.xyz', 'https://api.yuliaageeva.nomoredomains.xyz'];
 const corsOptions = {
-  origin: function(origin, callback) {
+  origin(origin, callback) {
     if (!origin || corsWhitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {

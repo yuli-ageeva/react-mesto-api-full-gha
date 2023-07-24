@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const AuthError = require('../errors/AuthError');
+const { jwtSecret } = require('../utils/jwtSecretProvider');
 
 const auth = (req, res, next) => {
   const jwtToken = req.cookies.jwt;
@@ -9,7 +10,7 @@ const auth = (req, res, next) => {
 
   let payload;
   try {
-    payload = jwt.verify(jwtToken, process.env.JWT_SECRET);
+    payload = jwt.verify(jwtToken, jwtSecret());
   } catch (err) {
     throw new AuthError('Некорректный токен');
   }

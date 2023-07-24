@@ -5,6 +5,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const RequestError = require('../errors/RequestError');
 const AuthError = require('../errors/AuthError');
 const ConflictError = require('../errors/ConflictError');
+const { jwtSecret } = require('../utils/jwtSecretProvider');
 
 function getUsers(req, res, next) {
   User.find({})
@@ -145,7 +146,7 @@ function login(req, res, next) {
           return next(new AuthError('Неправильные почта или пароль'));
         }
         const payload = { _id: user._id };
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
+        const token = jwt.sign(payload, jwtSecret(), { expiresIn: '7d' });
 
         res.cookie('jwt', token, {
           httpOnly: true,
@@ -164,8 +165,8 @@ function login(req, res, next) {
     .catch(next);
 }
 
-function logout (req, res, _next) {
-  return res.status(204).clearCookie('jwt').end()
+function logout(req, res, _next) {
+  return res.status(204).clearCookie('jwt').end();
 }
 
 module.exports = {
@@ -176,5 +177,5 @@ module.exports = {
   updateUserAvatar,
   login,
   getUserProfile,
-  logout
+  logout,
 };
