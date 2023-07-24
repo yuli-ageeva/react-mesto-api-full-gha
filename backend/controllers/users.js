@@ -6,6 +6,12 @@ const RequestError = require('../errors/RequestError');
 const AuthError = require('../errors/AuthError');
 const ConflictError = require('../errors/ConflictError');
 
+const jwtCookieOptions = {
+  httpOnly: true,
+  sameSite: 'none',
+  secure: true,
+}
+
 function getUsers(req, res, next) {
   User.find({})
     .then((users) => {
@@ -147,11 +153,7 @@ function login(req, res, next) {
         const payload = { _id: user._id };
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-        res.cookie('jwt', token, {
-          httpOnly: true,
-          sameSite: 'none',
-          secure: true,
-        });
+        res.cookie('jwt', token, jwtCookieOptions);
         return res.status(200).send({
           _id: user._id,
           name: user.name,
@@ -165,7 +167,7 @@ function login(req, res, next) {
 }
 
 function logout (req, res, _next) {
-  return res.status(204).clearCookie('jwt').end()
+  return res.status(204).clearCookie('jwt', jwtCookieOptions).end()
 }
 
 module.exports = {
