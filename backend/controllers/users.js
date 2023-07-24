@@ -167,7 +167,7 @@ function login(req, res, next) {
 }
 
 function logout (req, res, _next) {
-  return res.status(204).clearCookie('jwt', jwtCookieOptions).end()
+  return res.status(204).clearCookie('jwt').end()
 }
 
 module.exports = {
