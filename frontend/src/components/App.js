@@ -56,10 +56,10 @@ function App() {
 
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(user => user._id === currentUser._id);
+    const isLiked = card.likes.some(userId => userId === currentUser._id);
 
     api.toggleLike(card._id, isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      setCards(state => state.map(c => c._id === card._id ? newCard : c));
     })
       .catch((error) => {
         console.log(error);
@@ -69,7 +69,7 @@ function App() {
   function handleCardDelete(card) {
     api.deleteCard(card._id)
       .then(() => {
-        setCards((state) => state.filter((item) => item._id !== card._id))
+        setCards(state => state.filter(c => c._id !== card._id))
         closeAllPopups()
       })
       .catch((error) => {
