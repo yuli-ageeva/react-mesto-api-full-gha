@@ -28,6 +28,7 @@ export function logout() {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: credentials,
   })
     .then((response) => {
       if (response.ok) {
