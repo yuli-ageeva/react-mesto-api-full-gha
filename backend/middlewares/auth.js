@@ -3,6 +3,7 @@ const AuthError = require('../errors/AuthError');
 const { jwtSecret } = require('../utils/jwtSecretProvider');
 
 const auth = (req, res, next) => {
+  throw new AuthError(`прислали: ${JSON.stringify(req.headers)}`)
   const jwtToken = req.cookies.jwt;
   if (!jwtToken) {
     throw new AuthError('Необходима авторизация');
