@@ -150,7 +150,7 @@ function login(req, res, next) {
 
         res.cookie('jwt', token, {
           httpOnly: true,
-          sameSite: 'none',
+          sameSite: 'strict',
           // secure: true,
         });
         return res.status(200).send({
