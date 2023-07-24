@@ -151,8 +151,6 @@ function login(req, res, next) {
           httpOnly: true,
           sameSite: 'none',
           secure: true,
-          path: "/",
-          domain: 'yuliaageeva.nomoredomains.xyz'
         });
         return res.status(200).send({
           _id: user._id,
