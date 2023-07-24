@@ -149,9 +149,9 @@ function login(req, res, next) {
         const token = jwt.sign(payload, jwtSecret(), { expiresIn: '7d' });
 
         res.cookie('jwt', token, {
-          httpOnly: true,
-          sameSite: 'none',
-          secure: true,
+          // httpOnly: true,
+          // sameSite: 'none',
+          // secure: true,
         });
         return res.status(200).send({
           _id: user._id,
