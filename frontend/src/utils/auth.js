@@ -31,7 +31,7 @@ export function logout() {
   })
     .then((response) => {
       if (response.ok) {
-        return response.json();
+        return true
       } else {
         throw new Error('Ошибка при logout');
       }
