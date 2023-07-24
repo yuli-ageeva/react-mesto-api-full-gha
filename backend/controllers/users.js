@@ -148,7 +148,7 @@ function login(req, res, next) {
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
 
         res.cookie('jwt', token, {
-          httpOnly: false,
+          httpOnly: true,
           sameSite: 'none',
           secure: true,
           path: "/",
@@ -166,6 +166,10 @@ function login(req, res, next) {
     .catch(next);
 }
 
+function logout (req, res, _next) {
+  return res.status(204).clearCookie('jwt').end()
+}
+
 module.exports = {
   getUsers,
   getUserById,
@@ -174,4 +178,5 @@ module.exports = {
   updateUserAvatar,
   login,
   getUserProfile,
+  logout
 };

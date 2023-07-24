@@ -10,7 +10,7 @@ const cardRoutes = require('./routes/cards');
 const errorHandler = require('./middlewares/errorHandler');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/NotFoundError');
-const { login, createUser } = require('./controllers/users');
+const { login, createUser, logout } = require('./controllers/users');
 const { validateUserLogin, validateUserCreation } = require('./utils/userValidator');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -39,7 +39,14 @@ app.use(cookieParser());
 app.use(helmet());
 app.use(requestLogger);
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.post('/signin', validateUserLogin, login);
+app.post('/signout', logout);
 app.post('/signup', validateUserCreation, createUser);
 
 app.use('/users', auth, userRoutes);

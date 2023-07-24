@@ -167,11 +167,12 @@ function App() {
   };
 
   const handleSignOut = () => {
-    localStorage.removeItem('email');
-    // localStorage.removeItem('token');
-    setCurrentUser({});
-    setLoggedIn(false);
-    navigate('/sign-in');
+    auth.logout()
+      .then(() => {
+        setCurrentUser({});
+        setLoggedIn(false);
+        navigate('/sign-in');
+      })
   };
 
   return (

@@ -22,6 +22,22 @@ export function login(email, password) {
     })
 }
 
+export function logout() {
+  return fetch(`${baseUrl}/signout`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Ошибка при logout');
+      }
+    });
+}
+
 export function register(email, password) {
   return fetch(`${baseUrl}/signup`, {
     method: 'POST',
